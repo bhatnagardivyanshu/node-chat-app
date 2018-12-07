@@ -1,19 +1,15 @@
 <!DOCTYPE html>
 <html>
-<head>
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Node Chat App</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-</head>
-<body>
-    <p>WELCOME TO NODE CHAT APP</p>
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <title>Node Chat App</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+    </head>
+    <body>
+        <p>WELCOME TO NODE CHAT APP</p>
 
-    <script src="socket.io/socket.io.js"></script>
-    <script>
-        const socket = io(); // intiating a request to server to create a connection and keep it alive
-        socket.on('connect', () => alert('Connected to server!'))
-        socket.on('disconnect', () => alert('Disconnected to server!'))
-    </script>
-</body>
+        <script src="socket.io/socket.io.js"></script>
+        <script src="./js/index.js"></script>
+    </body>
 </html>

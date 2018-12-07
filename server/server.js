@@ -15,9 +15,19 @@ const io = socketIO(server);
 io.on('connection', (socket) => {
     console.log('New connection received');
 
-    socket.on('disconnect', () => {
-        console.log('Connection lost')
+    socket.emit('newMessage', {
+        from: 'Divyanshu',
+        text: 'Hey there!',
+        createdAt: new Date().getTime()
     })
+
+    socket.on('createMessage', (data) => {
+        console.log('New message created', data);
+    })
+
+    // socket.on('disconnect', () => {
+    //     console.log('Connection lost')
+    // })
 })
 
 server.listen(port, () => {
