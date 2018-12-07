@@ -8,5 +8,12 @@
 </head>
 <body>
     <p>WELCOME TO NODE CHAT APP</p>
+
+    <script src="socket.io/socket.io.js"></script>
+    <script>
+        const socket = io(); // intiating a request to server to create a connection and keep it alive
+        socket.on('connect', () => alert('Connected to server!'))
+        socket.on('disconnect', () => alert('Disconnected to server!'))
+    </script>
 </body>
 </html>
