@@ -8,46 +8,34 @@ const port = process.env.PORT || 3000;
 const server = http.createServer(app);
 const publicPath = path.resolve(__dirname, '../public');
 
+const {generateMessage} = require('./utils/message');
+
 app.use(express.static(publicPath));
 
 const io = socketIO(server);
 
 io.on('connection', (socket) => {
-    console.log('New connection received');
 
-    // send only to the new user, a welcome message
-    socket.emit('newMessage', {
-        from: 'Application',
-        text: 'Welcome user!',
-        createdAt: new Date().getTime()
-    })
+	console.log('New connection!');
+	
+	// send welcome message to the new user
+	socket.emit('newMessage', generateMessage('Admin', 'Welcome user!'))
+
+	// send new user joined notification to all the other users
+	socket.broadcast.emit('newMessage', generateMessage('Admin', 'New user joined!'))
     
-    socket.broadcast.emit('newMessage', {
-        from: 'Application',
-        text: 'New user joined!',
-        createdAt: new Date().getTime()
-    })
-    
-    // socket.emit('newMessage', {
-    //     from: 'Divyanshu',
-    //     text: 'Hey there!',
-    //     createdAt: new Date().getTime()
-    // })
+    socket.on('createMessage', (message, callback = null) => {
 
-    socket.on('createMessage', (message) => {
-        // console.log('New message created', message);
-
-        // send message to all the open connections
-        io.emit('newMessage', {
-            from: message.from,
-            text: message.text,
-            createdAt: new Date().getTime()
-        })
+		// send message to all the users
+		io.emit('newMessage', generateMessage(message.from, message.text));
+		if (callback) {
+			callback('some data');
+		}
     })
 
-    // socket.on('disconnect', () => {
-    //     console.log('Connection lost')
-    // })
+    socket.on('disconnect', () => {
+        console.log('Connection lost\n')
+    })
 })
 
 server.listen(port, () => {

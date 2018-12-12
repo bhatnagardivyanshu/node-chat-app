@@ -7,9 +7,19 @@
         <meta name="viewport" content="width=device-width, initial-scale=1" />
     </head>
     <body>
-        <p>WELCOME TO NODE CHAT APP</p>
+		<h3 style="text-align: center">Welcome to Node Chat app</h3>
+		
+		<ol id="message-list">
+			
+		</ol>
+		
+		<form id="message-form">
+			<input type="text" name="message" placeholder="Enter your message..." />
+			<button type="submit">Send</button>
+		</form>
 
-        <script src="socket.io/socket.io.js"></script>
+		<script src="socket.io/socket.io.js"></script>
+		<script src="./js/libs/jquery.js"></script>
         <script src="./js/index.js"></script>
     </body>
 </html>
