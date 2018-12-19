@@ -10,11 +10,8 @@ function createMessage() {
 			from: 'User', 
 			text: input.val(),
 		}, (data) => {
-			console.log('ACKNOWLEDGEMENT RECEIVED')
+			input.val('')
 		});
-
-		// reset input value
-		input.val('');
 	})
 }
 
@@ -43,24 +40,31 @@ function readMessage() {
 function sendLocation () {
 	const button = $('#send-location');
 	$(button).on('click', function () {
-		
+		button.attr('disabled', true).text('Sending location...');
+
 		if(!navigator.geolocation) {
 			return alert('Geolocation is not supported by your browser.')
 		}
 
 		navigator.geolocation.getCurrentPosition(
+			
 			function(position){
+
 				socket.emit('createLocationMessage', {
 					longitude: position.coords.longitude,
 					latitude: ProcessingInstruction.coords.longitude
-				})
+				});
+				button.attr('disabled', false).text('Send location');
+				
 			}, function(err){
+				
 				console.log('ERROR => ', err);
-				// alert('Unable to fetch location');
 				socket.emit('createMessage', {
 					from:'User', 
 					text: 'Tried sending location but failed'
-				})
+				});
+				button.attr('disabled', false).text('Send location');
+
 			}, {
 				timeout: 5000,
 				maximumAge: Infinity

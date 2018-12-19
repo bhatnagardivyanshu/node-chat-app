@@ -52,7 +52,7 @@ function onCreateMessage(socket) {
 		// send message to all the users
 		io.emit('newMessage', generateMessage(message.from, message.text));
 		if (callback) {
-			callback('some data');
+			callback();
 		}
 	});
 }
