@@ -6,6 +6,7 @@
     "scripts": {
         "start": "nodemon server/server.js",
         "test": "mocha server/**/*.test.js",
+        "test-with-jest": "jest",
         "test-watch": "nodemon --exec \"npm test\""
     },
     "engines": {
@@ -18,7 +19,7 @@
         "socket.io": "^2.2.0"
     },
     "devDependencies": {
-        "expect": "^23.6.0",
+        "jest": "^23.6.0",
         "mocha": "^5.2.0",
         "nodemon": "^1.18.7"
     }
