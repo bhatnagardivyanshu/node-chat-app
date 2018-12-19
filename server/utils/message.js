@@ -1,15 +1,16 @@
 const config = require('../config');
+const moment = require('moment');
 
 const generateMessage = (from, text) => ({
     from,
     text,
-    createdAt: new Date().toDateString()
+    createdAt: moment().valueOf()
 })
 
 const generateLocationMessage = (from, coords) => ({
 	from,
 	url: getPreparedGoogleMapUrl(coords),
-	createAt: new Date().toDateString
+	createdAt: moment().valueOf()
 })
 
 const getPreparedGoogleMapUrl = coords => {

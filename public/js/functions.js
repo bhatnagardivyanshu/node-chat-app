@@ -18,16 +18,18 @@ function createMessage() {
 // show message
 function readMessage() {
 	socket.on('newMessage', function(messageObj) {
+		const formattedTimestamp = moment(messageObj.createdAt).format('h:mm a');
 		const li = $('<li></li>');
-		li.text(`${messageObj.from}: ${messageObj.text}`);
+		li.text(`${messageObj.from} ${formattedTimestamp} : ${messageObj.text}`);
 		$('#message-list').append(li);
+
 	});
 
 	socket.on('newLocationMessage', function(messageObj){
 		// using .text, .href methods to avoid any malicious behaviour
-		
+		const formattedTimestamp = moment(messageObj.createdAt).format('h:mm a');
 		const li = $('<li></li>');
-		li.text(`${messageObj.from} : `);
+		li.text(`${messageObj.from} ${formattedTimestamp}: `);
 
 		const a = $(`<a targe='_blank'>My Current Location</a>`)
 		a.href(messageObj.url);
