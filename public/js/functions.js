@@ -27,6 +27,7 @@ function readMessage() {
 			createdAt: timestamp
 		});
 		$('#message-list').append(html);
+		scrollToBottom();
 	});
 
 	socket.on('newLocationMessage', function(messageObj){
@@ -83,6 +84,22 @@ function sendLocation () {
 				maximumAge: Infinity
 		});
 	});
+}
+
+function scrollToBottom() {
+	const messageList = $('#message-list');
+	const newMessage = messageList.children('li:last-child')
+
+	const clientHeight = messageList.prop('clientHeight');
+	const scrollTop = messageList.prop('scrollTop');
+	const scrollHeight = messageList.prop('scrollHeight');
+	const newMessageHeight = newMessage.innerHeight();
+	const lastMessageHeight = newMessage.prev().innerHeight();
+
+	if (clientHeight + scrollTop + newMessageHeight + lastMessageHeight >= scrollHeight) {
+		messageList.scrollTop(scrollHeight);
+	}
+	
 }
 
 // change page title on new message
