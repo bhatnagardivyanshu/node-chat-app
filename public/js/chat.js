@@ -5,7 +5,15 @@ const defaultTitle = document.title
 
 // event listeners
 socket.on('connect', function () {
-  console.log('Connected to server!')
+	const params = $.deparam(window.location.search);
+	socket.emit('join', params, function(err) {
+		if (err) {
+			alert(err);
+			window.location.href = '/';
+		} else {
+
+		}
+	})
 })
 
 socket.on('disconnect', function () {
@@ -19,3 +27,4 @@ socket.on('disconnect', function () {
 createMessage();
 readMessage();
 sendLocation();
+updateUsersList();

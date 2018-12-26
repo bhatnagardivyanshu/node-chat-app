@@ -102,6 +102,17 @@ function scrollToBottom() {
 	
 }
 
+function updateUsersList() {
+	socket.on('updateUsersList', function(users) {
+		// console.log('Users updated! New list ', users)
+		const ol = $('<ol></ol>');
+		users.forEach(function(user) {
+			ol.append($('<li></li>').text(user));
+		})
+		$('#users').html(ol)
+	})
+}
+
 // change page title on new message
 // function handlePageTitle (newMessage) {
 //   try {
