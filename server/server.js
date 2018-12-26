@@ -92,17 +92,20 @@ function welcomeUser(socket) {
 
 function onCreateMessage(socket) {
 	socket.on('createMessage', (message, callback = null) => {
-		// send message to all the users
-		io.emit('newMessage', generateMessage(message.from, message.text));
-		if (callback) {
-			callback();
+		const user = users.getUser(socket.id);
+		if (user && isRealString(message.text)) {
+			io.to(user.room).emit('newMessage', generateMessage(user.name, message.text));
 		}
+		callback();
 	});
 }
 
 function onCreateLocationMessage(socket) {
 	socket.on('createLocationMessage', (coords) => {
-		io.emit('newLocationMessage', generateLocationMessage('Admin', coords));
+		const user = users.getUser(socket.id);
+		if (user) {
+			io.to(user.room).emit('newLocationMessage', generateLocationMessage(user.name, coords));
+		}
 	})
 }
 

@@ -1,4 +1,3 @@
-// create message
 function createMessage() {
 	
 	$('#message-form').on('submit', function(e) {
@@ -7,7 +6,6 @@ function createMessage() {
 
 		const input = $('input[name=\'message\']');
 		socket.emit('createMessage', {
-			from: 'User', 
 			text: input.val(),
 		}, (data) => {
 			input.val('')
@@ -15,7 +13,6 @@ function createMessage() {
 	})
 }
 
-// show message
 function readMessage() {
 
 	socket.on('newMessage', function(messageObj) {
